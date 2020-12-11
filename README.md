@@ -49,7 +49,7 @@ Ideias de implementação:
 - [ ] Caso sistema dê pane, rotina para resetar e reconectar no Drone!
     - Para esse sistema, como não haveria calibração inicial o comando de land seria enviado automaticamente após a conexão, para garantir que o Drone não se descontrole.
 - [ ] Botão para dar piruetas
-- [ ] 
+- [ ] Em construção...
 
 ## Começando <a name = "comecando"></a>
 Estas intruçōes te darão uma cópia funcional do projeto na sua máquina local para desenvolvimento e testes. Veja [deployment](#deployment) para uma descrição de como realizar o deployment deste projeto online.
