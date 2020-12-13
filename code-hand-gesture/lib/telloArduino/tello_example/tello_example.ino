@@ -1,11 +1,8 @@
 #include <Tello.h>
 
 // WiFi network name and password:
-const char * networkName = "TELLO-Abacates";//Replace with your Tello SSID
-const char * networkPswd = "abacates123";
-
-void connectToWiFi(const char * ssid, const char * pwd);
-void WiFiEvent(WiFiEvent_t event);
+const char * networkName = "TELLO-XXXXXX";//Replace with your Tello SSID
+const char * networkPswd = "";
 
 //Are we currently connected?
 boolean connected = false;
@@ -14,7 +11,7 @@ Tello tello;
 
 void setup() 
 {
-  Serial.begin(115200); 
+  Serial.begin(9600); 
   //Connect to the WiFi network
   connectToWiFi(networkName, networkPswd);
 }
@@ -24,9 +21,6 @@ void loop()
   // put your main code here, to run repeatedly:
   if(connected )
   {
-    tello.init();
-    Serial.println(tello.getBattery());
-    delay(5000);
     tello.takeoff();
     delay(5000);
     tello.up(30);
@@ -74,9 +68,7 @@ void WiFiEvent(WiFiEvent_t event)
       Serial.print("WiFi connected! IP address: ");
       Serial.println(WiFi.localIP());
       //initialise Tello after we are connected
-      delay(2000);
       tello.init();
-      delay(2000);
       connected = true;
       break;
       
