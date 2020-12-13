@@ -1,10 +1,10 @@
 #include <Tello.h>
 
 // WiFi network name and password:
-const char * networkName = "TELLO-Abacates";//Replace with your Tello SSID
-const char * networkPswd = "abacates123";
+const char *networkName = "TELLO-Abacates"; //Replace with your Tello SSID
+const char *networkPswd = "abacates123";
 
-void connectToWiFi(const char * ssid, const char * pwd);
+void connectToWiFi(const char *ssid, const char *pwd);
 void WiFiEvent(WiFiEvent_t event);
 
 //Are we currently connected?
@@ -12,77 +12,70 @@ boolean connected = false;
 
 Tello tello;
 
-void setup() 
-{
-  Serial.begin(115200); 
-  //Connect to the WiFi network
-  connectToWiFi(networkName, networkPswd);
+void setup() {
+    Serial.begin(115200);
+    //Connect to the WiFi network
+    connectToWiFi(networkName, networkPswd);
 }
 
-void loop() 
-{
-  // put your main code here, to run repeatedly:
-  if(connected )
-  {
-    tello.init();
-    Serial.println(tello.getBattery());
-    delay(5000);
-    tello.takeoff();
-    delay(5000);
-    tello.up(30);
-    delay(2000);
-    tello.down(30);
-    delay(2000);
-    tello.right(30);
-    delay(2000);
-    tello.left(30);
-    delay(2000);
-    tello.land();
-    //you have 5 seconds to save your tello before it takes off again
-    delay(5000);
+void loop() {
+    // put your main code here, to run repeatedly:
+    if (connected) {
+        tello.init();
+        Serial.println(tello.getBattery());
+        delay(5000);
+        tello.takeoff();
+        delay(5000);
+        tello.up(30);
+        delay(2000);
+        tello.down(30);
+        delay(2000);
+        tello.right(30);
+        delay(2000);
+        tello.left(30);
+        delay(2000);
+        tello.land();
+        //you have 5 seconds to save your tello before it takes off again
+        delay(5000);
 
-    //do once and go into a while loop
-    while(1)
-    {
-      delay(5000);
+        //do once and go into a while loop
+        while (1) {
+            delay(5000);
+        }
     }
-  }
 }
 
-void connectToWiFi(const char * ssid, const char * pwd) 
-{
-  Serial.println("Connecting to WiFi network: " + String(ssid));
+void connectToWiFi(const char *ssid, const char *pwd) {
+    Serial.println("Connecting to WiFi network: " + String(ssid));
 
-  // delete old config
-  WiFi.disconnect(true);
-  //register event handler
-  WiFi.onEvent(WiFiEvent);
+    // delete old config
+    WiFi.disconnect(true);
+    //register event handler
+    WiFi.onEvent(WiFiEvent);
 
-  //Initiate connection
-  WiFi.begin(ssid, pwd);
+    //Initiate connection
+    WiFi.begin(ssid, pwd);
 
-  Serial.println("Waiting for WIFI connection...");
+    Serial.println("Waiting for WIFI connection...");
 }
 
 //wifi event handler
-void WiFiEvent(WiFiEvent_t event) 
-{
-  switch (event) 
-  {
+void WiFiEvent(WiFiEvent_t event) {
+    switch (event) {
     case SYSTEM_EVENT_STA_GOT_IP:
-      //When connected set
-      Serial.print("WiFi connected! IP address: ");
-      Serial.println(WiFi.localIP());
-      //initialise Tello after we are connected
-      delay(2000);
-      tello.init();
-      delay(2000);
-      connected = true;
-      break;
-      
+        //When connected set
+        Serial.print("WiFi connected! IP address: ");
+        Serial.println(WiFi.localIP());
+        //initialise Tello after we are connected
+        delay(2000);
+        tello.init();
+        delay(2000);
+        connected = true;
+        break;
+
     case SYSTEM_EVENT_STA_DISCONNECTED:
-      Serial.println("WiFi lost connection");
-      connected = false;
-      break;
-  }
+        Serial.println("WiFi lost connection");
+        connected = false;
+        break;
+    }
 }
